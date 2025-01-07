@@ -1,0 +1,90 @@
+Object of the Exercise:
+
+Create functions to:
+
+    Convert feet/inches into metres,
+    Convert stones/pounds into kilograms,
+    Calculate Body Mass Index (BMI) using the formula:
+    BMI=Weight in kilogramsHeight in metres2
+    BMI=Height in metres2Weight in kilograms​
+
+This exercise is provided to help potential course delegates select the correct Wise Owl Microsoft training course. It may not be reproduced in whole or in part in any format without prior written consent from Wise Owl.
+Getting Started:
+
+Before beginning, download and unzip the required file:
+
+The provided workbook calculates someone's BMI (Body Mass Index) from imperial measurements.
+
+    You can type your name into cell C2 to personalize your data.
+
+Built-in Constants:
+
+The workbook contains a module with predefined constants for convenience:
+
+' Conversion rate: kilograms per pound
+Const KgRate As Double = 0.45359237
+
+' Number of pounds in a stone
+Const PoundsInStone As Integer = 14
+
+' Number of inches in a foot
+Const InchesInFeet As Integer = 12
+
+' Number of centimetres in an inch
+Const CmsInInch As Double = 2.54
+
+Even though you know there are 12 inches in a foot, using constants makes your code clearer.
+Functions to Write:
+
+    Convert feet and inches into metres
+        Create a function that converts a height in feet and inches to metres.
+        Use this function to calculate the value in cell C7.
+
+    Convert stones and pounds into kilograms
+        Create a function to convert a weight in stones and pounds to kilograms.
+        Use this function for calculations in column E.
+
+    Calculate BMI
+        Write a function to calculate BMI using height (in metres) and weight (in kilograms):
+        BMI=WeightHeight2
+        BMI=Height2Weight​
+        The result should display in the appropriate cells.
+
+Additional Notes:
+
+    A healthy BMI is typically between 20 and 25.
+    A BMI over 25 is considered overweight.
+
+Instructions for Saving:
+
+Save the completed workbook as BMI.xlsx, then close it.
+------------------------------------------------------------------------
+VBA answer key:
+
+Option Explicit
+
+' Constants
+Const KgRate As Double = 0.45359237 ' Number of kg in one pound
+Const PoundsInStone As Integer = 14 ' Number of pounds in one stone
+Const InchesInFeet As Integer = 12 ' Number of inches in one foot
+Const CmsInInch As Double = 2.54 ' Number of centimeters in one inch
+
+' Function to convert feet and inches to meters
+Function ConvertToMeters(feet As Integer, inches As Integer) As Double
+    Dim totalInches As Integer
+    totalInches = (feet * InchesInFeet) + inches
+    ConvertToMeters = totalInches * CmsInInch / 100 ' Convert cm to meters
+End Function
+
+' Function to convert stones and pounds to kilograms
+Function ConvertToKilograms(stones As Integer, pounds As Integer) As Double
+    Dim totalPounds As Integer
+    totalPounds = (stones * PoundsInStone) + pounds
+    ConvertToKilograms = totalPounds * KgRate
+End Function
+
+' Function to calculate BMI
+Function CalculateBMI(weightKg As Double, heightM As Double) As Double
+        CalculateBMI = weightKg / (heightM ^ 2)
+End Function
+

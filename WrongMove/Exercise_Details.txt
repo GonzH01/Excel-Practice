@@ -1,0 +1,39 @@
+The goal of this exercise is to analyze property data using a pivot table with calculated fields and grouping to generate insights.
+
+Key tasks include:
+
+    Create a blank pivot table based on the provided property data.
+    Add a calculated field named Total Rooms, which sums the number of bedrooms, bathrooms, and reception rooms, and display it in the pivot table.
+    Group locations into two categories:
+        Urban: Includes "Town" and "Village."
+        Non-Urban: Includes "Countryside" and "Remote."
+    Use the grouped location field to display the percentage contribution of each garden size to the total number of properties for Urban and Non-Urban locations by adjusting the pivot table's calculation.
+
+The final pivot table will provide a breakdown of property data by location type, garden size, and the calculated field for Total Rooms. Save the workbook as Throw-er pivot chart.xlsx and close it.
+------------------------------------------------------------------------
+Steps to Complete the Desired Pivot Table:
+
+    1)Create the Pivot Table:
+        Highlight the property data.
+        Create a pivot table on the next sheet and assign it to a specific cell.
+
+    2)Add a Calculated Field for Total Rooms:
+        In the PivotTable Analyze tab, select Fields, Items & Sets, then Calculated Field.
+        Name the new field Total Rooms.
+        Enter the formula: =bedrooms + bathrooms + reception rooms.
+        Press OK and drag the new field to the Values area.
+
+    3)Convert Total Rooms to Percentages:
+        Click the dropdown arrow on Sum of Total Rooms in the Values area.
+        Select Value Field Settings, then go to the Show Values As tab.
+        Choose % of Row Total and press OK.
+
+    4)Add Locations and Garden Size:
+        Drag Location to the Rows area.
+        Drag Garden Size to the Columns area.
+
+    5)Group Locations:
+        Highlight Countryside and Remote in the Rows area, right-click, and select Group. Rename the group to Non-Urban.
+        Similarly, group Town and Village, and rename the group to Urban.
+
+This will create a pivot table displaying Total Rooms as percentages by Location (Urban/Non-Urban) and Garden Size.

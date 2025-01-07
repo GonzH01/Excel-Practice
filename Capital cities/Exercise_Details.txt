@@ -1,0 +1,55 @@
+The goal of this exercise is to create a macro in Excel that loops through all worksheets representing continents in a workbook. The macro extracts the last capital city listed in each worksheet and compiles these cities into a new worksheet named Last Cities.
+
+Key tasks include:
+
+    Navigating each worksheet (except Last Cities) to find the bottom-most row in the first column (country name) and retrieving the adjacent cell (capital city).
+    Storing these capital cities sequentially in the Last Cities worksheet.
+    Ensuring the Last Cities worksheet columns are automatically resized to fit the content.
+
+The resulting Last Cities worksheet will display a list of the last capital city from each continent worksheet in a clear and organized manner.
+----------------------------------
+VBA answer key:
+Sub ListLastCities()
+    Dim ws As Worksheet
+    Dim lastCitiesWs As Worksheet
+    Dim lastRow As Long
+    Dim capitalCity As String
+    Dim outputRow As Long
+    
+    ' Add a new worksheet for Last Cities if it doesn't already exist
+    On Error Resume Next
+    Set lastCitiesWs = ThisWorkbook.Worksheets("Last Cities")
+    If lastCitiesWs Is Nothing Then
+        Set lastCitiesWs = ThisWorkbook.Worksheets.Add
+        lastCitiesWs.Name = "Last Cities"
+    End If
+    On Error GoTo 0
+    
+    ' Clear existing content in Last Cities worksheet
+    lastCitiesWs.Cells.Clear
+    
+    ' Initialize output row
+    outputRow = 1
+    
+    ' Loop through all worksheets
+    For Each ws In ThisWorkbook.Worksheets
+        If ws.Name <> "Last Cities" Then
+            ' Find the last row in the first column
+            lastRow = ws.Cells(ws.Rows.Count, 1).End(xlUp).Row
+            
+            ' Get the capital city (cell to the right of the last country)
+            capitalCity = ws.Cells(lastRow, 2).Value
+            
+            ' Write the capital city to the Last Cities worksheet
+            lastCitiesWs.Cells(outputRow, 1).Value = capitalCity
+            
+            ' Move to the next row in Last Cities
+            outputRow = outputRow + 1
+        End If
+    Next ws
+    
+    ' Autofit the columns in the Last Cities worksheet
+    lastCitiesWs.Columns.AutoFit
+    
+End Sub
+

@@ -1,0 +1,76 @@
+ Create a macro which opens a Word document and puts mail merge fields at the right bookmark locations
+
+This exercise is provided to allow potential course delegates to choose the correct Wise Owl Microsoft training course, and may not be reproduced in whole or in part in any format without the prior written consent of Wise Owl.
+Before you can do this exercise, you'll need to download and unzip this file .
+
+Open Word, and make sure that you can see any bookmarks that you create. 
+
+
+Create a new document to contain a prize-winning letter (you can create bookmarks from the Insert tab of the ribbon in Word):
+Excel VBA Macros exercise - Referencing other applications (image 1)
+
+The I-beam pointers are bookmarks that you need to create
+
+Save this file as Mailing letter, and close it down.
+
+Open the workbook in the above folder called People, and write a macro within it which asks you for a person's name:
+[Input box asking for person name]
+
+You could, for example, type Rishi Sunak in here.
+
+Extend your macro so that it:
+
+    Creates a new Word application
+
+    Opens your letter document in Word
+
+    Goes to the first bookmark and types in the person name
+
+    Goes to the second bookmark and types in the prize name
+
+Save your revised workbook as Annoying Letters, then close it down.
+-----------------------------------------------------------------------
+VBA code answer key:
+Option Explicit
+
+Sub CreateLetter()
+
+    Dim Person As String        'the prize-winner
+         'the cell containing the prize-winner
+    Dim prize As String         'the prize won
+    
+    Person = InputBox("Who has won the prize?", "Prize", "Type the prize-winner name in here")
+    
+    Set PersonCell = Cells.Find(Person)
+    If PersonCell Is Nothing Then
+
+        'no such person
+        MsgBox "No such person"
+        Exit Sub
+        
+    End If
+    
+    'get the name of the prize
+    prize = PersonCell.Offset(0, 1).Value
+    
+    'now create the letter
+    CreateWordLetter Person, prize
+    
+    MsgBox "You can now edit and send this letter!"
+    
+End Sub
+Sub CreateWordLetter(Person As String, prize As String)
+
+    Dim wd As New Word.Application      'copy of Word
+    Dim doc As Word.Document            'the letter document
+    
+    'open letter - your path will be different!
+    Set doc = wd.Documents.Open("D:\interview and notes\Excel\Annoying letters\Prizemessage.docx")
+    wd.Visible = True
+    
+    wd.Selection.GoTo What:=wdGoToBookmark, Name:="FirstName"
+    wd.Selection.TypeText Person
+    wd.Selection.GoTo What:=wdGoToBookmark, Name:="Prize"
+    wd.Selection.TypeText prize
+    
+End Sub
